@@ -1,7 +1,13 @@
-영화 api
-
+데이터의 소스는 한군데다. 메인 컴포넌트가 데이터 다 가지고있음. 
+타이틀, 영화 포스터 정보를 메인에 다 집어넣고, 그걸 각각 컴포넌트에 props를 이용해 정보를 출력하게함.
+데이터 플로우 : 메인 컴포넌트가 전체정보 다 가지고있음 -> 각 칠드런 컴포넌트에게 정보를 전달함
+그럼 한개의 데이터 소스를 가지고 각 컴포넌트별로 출력만 하면됨.
 ***
-`const movieTitle = [
+
+### 아래 코드는 효율적이지않음. 
+몇개의 영화를 갖고있는지 모르는경우도있고, api에서 긁어온 엄청난 양의 영화정보를 불러오고 싶을때도 있을거임.
+```
+const movieTitle = [
   "1번영화",
   "2번영화",
   "3번영화",
@@ -9,10 +15,10 @@
 ]
 
 const movieImages = [
-  "http://blogfiles.naver.net/20110801_39/nissi99_1312202518210uGpu1_JPEG/%B0%FA%C0%CF%B2%AE%C1%FA_%B0%FA%C0%CF%B2%AE%C1%FA%C8%B0%BF%EB%B9%FD_%C2%FC%BF%DC%B2%AE%C1%FA%C8%B0%BF%EB%B9%FD_02.jpg",
-  "http://blogfiles.naver.net/20110727_12/midasyw_1311731448126dMgws_JPEG/B0FAC0CF1.jpg",
-  "http://post.phinf.naver.net/20161019_190/1476845501910xCAfQ_JPEG/Ie_V-9BQKER7U6z6zwgzAAuClFMs.jpg",
-  "http://blogfiles.naver.net/MjAxOTA4MDFfMjMz/MDAxNTY0NjYyMzMxMjMz.rhhCp5_LQjRAKKWiwiE-HWUeK2jsYewuoVbLKWU50w8g.e4M_7gHfZTxNcoIVy6mw8CahsqCxuoOZ1v4leJMOniIg.JPEG.roseapple9076/%B7%CE%C1%EE%BE%D6%C7%C3_%C6%F2%C5%C3%B7%CE%C1%EE%BE%D6%C7%C3_%B7%CE%C1%EE%BE%D6%C7%C3%C6%F2%C5%C3_%B7%CE%C1%EE%BE%D6%C7%C3%C6%F2%C5%C3%C1%A1_%B7%CE%C1%EE%BE%D6%C7%C3%B0%FA%C0%CF%B9%D9%B1%B8%B4%CF_%C6%F2%C5%C3%B0%FA%C0%CF%B9%D9%B1%B8%B4%CF_%B7%CE%C1%EE%BE%D6%C7%C3%C6%F2%C5%C3%C1%A1%B0%FA%C0%CF%B9%D9%B1%B8%B4%CF_%B0%FA%C0%CF%B9%D9%B1%B8%B4%CF_3%C8%A3%B0%FA%C0%CF%B9%D9%B1%B8%B4%CF_%284%29.jpg"
+  "1.jpg",
+  "2.jpg",
+  "3.jpg",
+  "4.jpg"
 ]
 
 class App extends Component {
@@ -26,28 +32,26 @@ class App extends Component {
       </div>
     );
   }
-
-}`
-*** 
-### map 사용해서 바꾼뒤
-
+```
 ***
-`const movies = [
+### map을 활용해 배열 속 객체를 재구성하면 효율적이다.
+```
+const movies = [
   {
     title:"1번영화",
-    poster:"http://blogfiles.naver.net/20110801_39/nissi99_1312202518210uGpu1_JPEG/%B0%FA%C0%CF%B2%AE%C1%FA_%B0%FA%C0%CF%B2%AE%C1%FA%C8%B0%BF%EB%B9%FD_%C2%FC%BF%DC%B2%AE%C1%FA%C8%B0%BF%EB%B9%FD_02.jpg"
+    poster:"1.jpg"
   },
   {
     title:"2번영화",
-    poster:"http://blogfiles.naver.net/20110727_12/midasyw_1311731448126dMgws_JPEG/B0FAC0CF1.jpg"
+    poster:"2.jpg"
   },
   {
     title:"3번영화",
-    poster:"http://post.phinf.naver.net/20161019_190/1476845501910xCAfQ_JPEG/Ie_V-9BQKER7U6z6zwgzAAuClFMs.jpg"
+    poster:"3.jpg"
   },
   {
     title:"4번영화",
-    poster:"http://blogfiles.naver.net/MjAxOTA4MDFfMjMz/MDAxNTY0NjYyMzMxMjMz.rhhCp5_LQjRAKKWiwiE-HWUeK2jsYewuoVbLKWU50w8g.e4M_7gHfZTxNcoIVy6mw8CahsqCxuoOZ1v4leJMOniIg.JPEG.roseapple9076/%B7%CE%C1%EE%BE%D6%C7%C3_%C6%F2%C5%C3%B7%CE%C1%EE%BE%D6%C7%C3_%B7%CE%C1%EE%BE%D6%C7%C3%C6%F2%C5%C3_%B7%CE%C1%EE%BE%D6%C7%C3%C6%F2%C5%C3%C1%A1_%B7%CE%C1%EE%BE%D6%C7%C3%B0%FA%C0%CF%B9%D9%B1%B8%B4%CF_%C6%F2%C5%C3%B0%FA%C0%CF%B9%D9%B1%B8%B4%CF_%B7%CE%C1%EE%BE%D6%C7%C3%C6%F2%C5%C3%C1%A1%B0%FA%C0%CF%B9%D9%B1%B8%B4%CF_%B0%FA%C0%CF%B9%D9%B1%B8%B4%CF_3%C8%A3%B0%FA%C0%CF%B9%D9%B1%B8%B4%CF_%284%29.jpg"
+    poster:"4.jpg"
   }
 ]
 
@@ -60,4 +64,5 @@ class App extends Component {
         })}
       </div>
     );
-  }`
+  }
+```
