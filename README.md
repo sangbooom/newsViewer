@@ -69,3 +69,19 @@ class App extends Component {
     );
   }
 ```
+
+***
+React v15.5부터 React.PropTypes 는 별도 패키지로 옮겨졌다. 대신 prop-types 라이브러리를 사용하면된다.
+```
+import PropTypes from 'prop-types';
+
+class Movie extends Component{
+        static propTypes = {
+        title: PropTypes.string,
+        poster: PropTypes.string
+    }
+```
+
+***
+lifecycle api 공부하기. 개념
+https://ndb796.tistory.com/227
