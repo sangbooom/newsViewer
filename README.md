@@ -85,3 +85,30 @@ class Movie extends Component{
 ***
 lifecycle api 공부하기. 개념
 https://ndb796.tistory.com/227
+
+***
+loading states : 내가 필요한 데이터가 항상 바로 즉시 존재하지는않는다.
+
+데이터없이 컴포넌트가 로딩을 하고, 데이터를 위해 api를 불러서 api가 데이터를 주면 내 컴포넌트 state를 업데이트 할것이다.
+                
+api 콜을 타임아웃 기능으로 유사 구현해보자.
+                
+```
+  _renderMovies = () => {
+    const movies = this.state.movies.map((movie, index) => {
+      return <Movie title={movie.title} poster={movie.poster} key={index} />
+    })
+    return movies;
+  }
+
+  render() {
+    return (
+      <div className="App">
+        {this.state.movies ? this._renderMovies() : "Loading.."}
+      </div>
+    );
+  }
+}
+```
+***
+컴포넌트가 다있는건 아니다. #13부터
