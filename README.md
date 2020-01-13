@@ -111,4 +111,54 @@ api 콜을 타임아웃 기능으로 유사 구현해보자.
 }
 ```
 ***
-컴포넌트가 다있는건 아니다. #13부터
+컴포넌트는 smart 컴포넌트와 dump 컴포넌트가 있다.
+
+smart한 컴포넌트 : state가 있음
+```
+class Movie extends Component{
+      static propTypes = {
+      title: PropTypes.string,
+      poster: PropTypes.string
+    }
+    
+    render(){
+        return(
+            <div>
+                <h1>{this.props.title}</h1>
+                <MoviePoster poster={this.props.poster} />
+            </div>
+        );
+    }
+}
+
+class MoviePoster extends Component{
+    render(){
+        return(
+            <img src ={poster} alt="MoviePoster" width="100" height="100" />
+        );
+    }
+}
+```
+
+***
+
+dump한 컴포넌트 : state가 없음. 이 컴포넌트를 쓰면 render function, will mount, did mount 등 다 필요없음 html을 return 하기만하면됨.
+
+하지만 state를 잃게돼서 업데이트 하고 그런거 다 못함. 무비 포스터같은 컴포넌트에는 사용해도 괜춘함
+```
+function Movie({title,poster}){
+    return(
+        <div>
+                <h1>{title}</h1>
+                <MoviePoster poster={poster} />
+        </div>
+    )
+}
+
+function MoviePoster({poster}){
+    return(
+        <img src ={poster} alt="MoviePoster" width="100" height="100" />
+    )
+}
+
+```
