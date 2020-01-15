@@ -205,3 +205,4 @@ class App extends Component {
 export default App;
 ``` 
 구성을 바꿔봤는데 map이 함수가 아니라고 타입오류가 자꾸난다.. 삽질 이틀째
+https://stackoverflow.com/questions/30803168/data-map-is-not-a-function/30803220 
