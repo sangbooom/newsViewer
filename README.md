@@ -162,3 +162,46 @@ function MoviePoster({poster}){
 }
 
 ```
+***
+```
+class App extends Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      posts: []
+    }
+  }
+
+  UNSAFE_componentWillMount() {
+    fetch('http://www.kobis.or.kr/kobisopenapi/webservice/rest/movie/searchMovieList.json?key=e55a7610dadf4359d3729ab503c7205f')
+      .then(res => res.json())
+      .then(data => this.setState({
+        posts: data.movieListResult.movieList[0].movieNm
+
+      })
+      );
+      
+  }
+
+
+  render() {
+    const { posts } = this.state;
+    const postsList = posts.map((post) => (
+      <div>
+        <h4>{post.movieListResult.movieList[0].movieCd}</h4>
+      { /* <h4>{post.movieListResult.movieList[0].movieNm}</h4>
+        <h4>{post.movieListResult.movieList[0].movieNmEn}</h4>*/}
+      </div>
+    ));
+    return (
+      <div>
+        {postsList}
+      </div>
+    );
+  }
+}
+
+export default App;
+``` 
+구성을 바꿔봤는데 map이 함수가 아니라고 타입오류가 자꾸난다.. 삽질 이틀째
