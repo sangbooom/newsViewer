@@ -203,6 +203,119 @@ class App extends Component {
 }
 
 export default App;
-``` 
-구성을 바꿔봤는데 map이 함수가 아니라고 타입오류가 자꾸난다.. 삽질 이틀째
-https://stackoverflow.com/questions/30803168/data-map-is-not-a-function/30803220 
+```
+***
+jsonplaceholder 사이트를 이용해 간단한 api를 가지고 테스트해봤다.
+```
+class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      posts: [
+      ]
+    }
+  }
+  
+  UNSAFE_componentWillMount() {
+    fetch('https://jsonplaceholder.typicode.com/posts')
+      /*fetch('http://www.kobis.or.kr/kobisopenapi/webservice/rest/movie/searchMovieList.json?key=e55a7610dadf4359d3729ab503c7205f')*/
+      .then(res => res.json())
+      .then(data => this.setState(
+        {
+          posts: data
+        }
+      ));
+  }
+
+  render() {
+    const { posts } = this.state;
+    const postsList = posts.map((post) => (
+      <div key={post.id} id={post.id}>
+        <h4>{post.title}</h4>
+        <h4>{post.body}</h4>
+      </div>
+    ));
+    return (
+      <div className="App"> // className="App" 이란 Jsx문법이있어야 App.css에 적용이됨
+        {postsList}
+      </div>
+    );
+  }
+}
+
+export default App;
+```
+***
+아래는 노마드코더 리액트기초 웹서비스만들기 #16까지 한 내용이다. 
+
+fetch를 call api로 변경했다. 그 다음, getMovies 라는 funtion을 썼다. getMoives는 비동기함수고, 그 안에 datas라는 이름의 
+const 변수를생성했다. 그리고 call api 작업이 완료되고 return 하기를 await했다. call api는 fetch promise를
+return 할 것이고, 이는 모든 데이터의 json이다. 그 안에 datas가 있는 `movieListResult.movieList`라는 이름의 
+오브젝트와 함께.. 그래서 `movieListResult.movieList`라는 value는, const datas의 결과값이 되는거다. 
+그리고 컴포넌트의 state를 movies로 set했다.    (`movies : movies`를 `movies`로 모던 자바스크립트로 작성했음)
+그리고 렌더에서 state안에 datas가 있으면, render movies라는 function을 불러온다. 
+
+```
+  _getMovies = async () => {
+    const datas = await this._callApi()
+    this.setState({
+      datas
+    })
+  }
+```
+
+```
+class App extends Component {
+  
+  constructor(props) {
+    super(props);
+    this.state = {
+      title: [],
+      poster: []
+    }
+  }
+
+  UNSAFE_componentWillMount() {
+    this._getMovies();
+  }
+
+  _renderDatas = () => {
+    const datas = this.state.movies.map((data, index) => {
+      return <Movie title={data.title} poster={data.poster} key={index} />
+    })
+    return datas;
+  }
+
+  _getMovies = async () => {
+    const datas = await this._callApi()
+    this.setState({
+      datas
+    })
+  }
+
+  _callApi = () => {
+    return fetch('http://www.kobis.or.kr/kobisopenapi/webservice/rest/movie/searchMovieList.json?key=e55a7610dadf4359d3729ab503c7205f')
+      .then(res => res.json())
+      .then(json => json.movieListResult.movieList/*this.setState({
+        movies : [
+        {
+          title: json.movieListResult.movieList[1].movieNm,
+          poster: json.movieListResult.movieList[1].movieCd
+        }
+      ]
+
+    })*/
+    )
+    .then(err => console.log(err));
+  }
+
+  render() {
+    return (
+      <h1>{this.state.movies ? this._renderDatas() : "loading.."}</h1>
+    );
+  }
+}
+
+export default App;
+```
+현재 여기서 `json.movieListResult.movieList[]` 배열 안에 map함수로 api를 다 불러오고싶은데 어떻게 해결할지 방법을 찾지못하고있다. 
