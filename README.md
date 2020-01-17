@@ -319,3 +319,10 @@ class App extends Component {
 export default App;
 ```
 현재 여기서 `json.movieListResult.movieList[]` 배열 안에 map함수로 api를 다 불러오고싶은데 어떻게 해결할지 방법을 찾지못하고있다. 
+
+***
+return fetch('사이트')
+  .then(a)
+  .then(b)
+  .then(c)
+    ....    콜백지옥,, 해결방법?
