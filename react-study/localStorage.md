@@ -55,3 +55,10 @@
       }
   }
   ```
+  
+ ***
+ ### codepen에서 참고한 react localstorage
+ https://codepen.io/ragzor/pen/xGrJrg
+ - todolist에서의 localstorage
+ https://codepen.io/anon/pen/KaNZxX
+ - 간단한 input,button 구현으로 localstorage적용
