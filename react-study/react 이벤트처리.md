@@ -33,7 +33,7 @@ ReactDOM.render(<Event />, document.getElementById("root"))
 
 ***
 e.target 참고 https://recoveryman.tistory.com/82
-### [e.target.name] : e.target.value 이부분 이해가안감.. 공부하기
+
 placeholder를 이용한 입력한 state를 가지고 데이터 전송하기
 ![image](https://user-images.githubusercontent.com/43921054/73606807-70cadf80-45f1-11ea-9696-fcba2bc33e78.png)
 
@@ -101,8 +101,11 @@ class PostsForm extends Component {
 
 export default PostsForm;
 ```
+`[e.target.name] : e.target.value` 이 부분은 다중 입력을 제어할때 선택하도록 해줄수 있도록 대괄호로 묶었다. 
+
+
 ***
-### target ??
+### target에 대해서..
 
 ![asd](https://user-images.githubusercontent.com/43921054/73627445-1765bd80-4690-11ea-83f7-6150bf6ebcb9.png)
 
