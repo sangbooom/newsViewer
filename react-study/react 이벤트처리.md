@@ -101,9 +101,45 @@ class PostsForm extends Component {
 
 export default PostsForm;
 ```
+***
+### target ??
 
-### 이벤트 핸들러는 아직 익숙치가않다. 공부를 더해야겠다
+![asd](https://user-images.githubusercontent.com/43921054/73627445-1765bd80-4690-11ea-83f7-6150bf6ebcb9.png)
 
+```html
+<!DOCTYPE html>
+<html>
+<body onclick="myfunction(event)">
+
+    <p>Click on a paragraph. An alert box will alert the element that triggered the event.</p>
+    <p><strong>Note:</strong> The target property returns the element that triggered the event, and not necessarily the
+        eventlistener's element.</p>
+    <script>
+        myfunction = (event) => {
+            alert(event.target.nodeName)
+        }
+    </script>
+</body>
+</html>
+```
+
+```html
+<!DOCTYPE html>
+<html>
+<body>
+<strong id="myP">Click the button to get the node name of this element.</strong>
+<button onclick="myFunction()">Try it</button>
+<p id="demo"></p>
+<script>
+function myFunction() {
+  var x = document.getElementById("myP").nodeName;
+  document.getElementById("demo").innerHTML = x;
+}
+</script>
+
+</body>
+</html>
+```
 
 
 
