@@ -1,4 +1,3 @@
 ## 📰newsViewer
 
-
-![image](https://user-images.githubusercontent.com/43921054/90240996-2f9b6e00-de65-11ea-839e-dfe1b39234b5.png)
+![image](https://user-images.githubusercontent.com/43921054/90254823-54500f80-de7e-11ea-8491-fda37c72d18f.png)
